@@ -57,6 +57,7 @@ namespace BalanceLog
             if (!System.IO.File.Exists(sFileName))
             {
                 System.IO.File.Create(sFileName).Close();
+                //System.IO.File.SetAttributes(sFileName, System.IO.FileAttributes.ReadOnly);
             }
 
             //写日志
@@ -105,7 +106,7 @@ namespace BalanceLog
             if (!string.IsNullOrEmpty(sPayName))
             {
                 CConfigBalance.SetValue("NoOneMoney.xml", "Money", "PayDir", dLeftMoney.ToString(), "", "", "", "", "", "");
-                string logInfo = "姓名：" + sUseName + "；支付类型：" + sPayName + "；金额："+ (payInput.iMoney / 100).ToString() +"；剩余金额："+ dLeftMoney.ToString() +"";
+                string logInfo = "姓名：" + sUseName + "；支付类型：" + sPayName + "；金额："+ (Convert.ToDecimal(payInput.iMoney) / 100).ToString() +"；剩余金额："+ dLeftMoney.ToString() +"";
                 WriteBalanceLog(logInfo);
             }
             return dLeftMoney;
